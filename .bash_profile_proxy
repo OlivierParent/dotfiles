@@ -1,0 +1,23 @@
+# Artevelde University College Ghent proxy server on/off
+function proxy() {
+    case "$1" in
+        on)
+            PXY=http://proxy.arteveldehs.be:8080
+            NOPXY=localhost,0.0.0.0,127.0.0.1,.local
+            export HTTP_PROXY=$PXY HTTPS_PROXY=$PXY FTP_PROXY=$PXY NO_PROXY=$NOPXY http_proxy=$PXY https_proxy=$PXY ftp_proxy=$PXY no_proxy=$NOPXY
+            unset PXY NOPXY
+            echo "Artevelde University College Ghent proxy server settings are SET"
+            ;;
+        off)
+            unset HTTP_PROXY HTTPS_PROXY FTP_PROXY NO_PROXY http_proxy https_proxy
+            echo "Artevelde University College Ghent proxy server settings are UNSET"
+            ;;
+        *)
+            echo "Error: missing required parameter."
+            echo "Usage: "
+            echo "  proxy on"
+            echo "  proxy off"
+            echo "Proxy Server Settings: $HTTP_PROXY | Proxy Server Exceptions: $NO_PROXY"
+            ;;
+    esac
+}
