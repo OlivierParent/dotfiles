@@ -1,0 +1,19 @@
+
+<aside class="list-group">
+{% for node in nodes %}
+{% assign node_level = node.path | remove: "pages/" | split: "_" | first | split: "-" %}
+{% if node_level[0] == page_level[0] %}
+    <a class="list-group-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">
+        {% if node_level[1] == "0" and node_level[2] == "0" %}
+        <h4>{{ node.title }}</h4>
+        {% endif %}
+        {% if node_level[1] != "0" and node_level[2] == "0" %}
+        <h5>{{ node.title }}</h5>
+        {% endif %}
+        {% if node_level[1] != "0" and node_level[2] != "0" %}
+        <h6>{{ node.title }}</h6>
+        {% endif %}
+    </a>
+{% endif %}
+{% endfor %}
+</aside>

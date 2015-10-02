@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+    {% include head.html %}
+<body>
+    {% include navbar.html %}
+    <div class="container p-t">
+        <div class="row">
+            <div class="col-md-9">
+                {{ content }}
+            </div>
+            <div class="col-md-3">
+                {% include sidebar.html %}
+            </div>
+        </div>
+    </div>
+    {% include footer.html %}
+{% include scripts.html %}
+</body>
+</html>

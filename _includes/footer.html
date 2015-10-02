@@ -1,0 +1,6 @@
+<footer class="footer bg-{{ site.colour }} p-a">
+    <div class="container">
+        <p>&copy; {{ site.copyright_year }} {{ site.copyright_owner }}
+            <span class="pull-right">{% if site.language == "nl" %}Geüpdatet op{% else %}Updated on{% endif %} <span class="label label-info">{{ site.time | date_to_long_string }}</span></span></p>
+    </div>
+</footer>

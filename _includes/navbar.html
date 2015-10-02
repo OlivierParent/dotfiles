@@ -1,0 +1,24 @@
+<nav class="navbar navbar-dark navbar-static-top bg-{{ site.colour }}">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar-collapse-1">&#9776;</button>
+    <div class="collapse navbar-toggleable-xs" id="navbar-collapse-1">
+        <a class="navbar-brand" href="{{ site.baseurl }}/" title="{{ site.title_long }}"><i class="fa fa-rocket"></i> {{ site.title }}</a>
+        <ul class="nav navbar-nav">
+{% assign page_level = page.path | remove: "pages/" | split: "_" | first | split: "-" %}
+{% assign nodes = (site.pages | where: "layout", "page") %}
+{% for node in nodes %}
+{% assign node_level = node.path | remove: "pages/" | split: "_" | first | split: "-" %}
+{% if (node_level[1] == "0") and (node_level[2] == "0") and node.title != "Style Guide" %}
+            <li class="nav-item{% if page_level[0] == node_level[0] %} active{% endif %}">
+                <a class="nav-link" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a>
+            </li>
+{% endif %}
+{% endfor %}
+            <li class="nav-item dropdown pull-right p-r" id="table-of-contents">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bookmark"></i></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-header"><i class="fa fa-bookmark"></i> {% if site.language == "nl" %}Inhoudstafel{% else %}Table of Contents{% endif %}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

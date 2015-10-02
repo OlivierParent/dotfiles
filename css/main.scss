@@ -1,0 +1,111 @@
+---
+---
+@charset "utf-8";
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+    "colours",
+    "fonts",
+    "solarized-light",
+    "syntax-highlighting"
+;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
+}
+h2,
+h3,
+h4 {
+    position: relative;
+    .fa {
+        font-size: 1.3rem;
+    }
+}
+
+.content,
+.dropdown {
+    counter-reset: h2-counter;
+    > h2, [data-counter=h2-counter] {
+        counter-reset: h3-counter;
+        &::before {
+            content: counter(h2-counter, upper-roman) ". ";
+            counter-increment: h2-counter;
+        }
+    };
+    > h3, [data-counter=h3-counter] {
+        counter-reset: h4-counter;
+        &::before {
+            content: counter(h3-counter) ". ";
+            counter-increment: h3-counter;
+        }
+    }
+    > h4, [data-counter=h4-counter] {
+        counter-reset: h5-counter;
+        &::before {
+            content: counter(h3-counter) "." counter(h4-counter) " ";
+            counter-increment: h4-counter;
+        }
+    }
+    > h5, [data-counter=h5-counter] {
+        &::before {
+            content: counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+            counter-increment: h5-counter;
+        }
+    }
+    > h6 {
+        &::before {
+            content: counter(h6-counter, lower-alpha) ". ";
+            counter-increment: h6-counter;
+        }
+    }
+}
+
+a {
+    &.heading-link {
+        bottom: 0;
+        display: block;
+        height: 1.75rem;
+        left: -2rem;
+        line-height: 1.75rem;
+        position: absolute;
+    }
+}
+
+.content {
+    h1 {
+        margin: 1em 0;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: .5em 0;
+    }
+}
+
+// footer
+$footer-height: 4rem;
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+body {
+    font-family: $font-sans-serif;
+    line-height: 1.8;
+    padding-bottom: $footer-height;
+    footer{
+        &.footer {
+            bottom: 0;
+            height: $footer-height;
+            position: absolute;
+            width: 100%;
+        }
+    }
+}

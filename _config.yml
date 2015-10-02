@@ -1,0 +1,19 @@
+# Site settings
+title: Dotfiles
+title_long: Artevelde Dotfiles
+copyright_year : 2015-2016
+copyright_owner: Olivier Parent
+colour         : danger
+language       : en
+baseurl        : "/dotfiles" # the subpath of your site, e.g. /blog/
+
+# Build settings
+highlighter: pygments
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: pygments
+gems:
+  - jemoji
+sass:
+  style: compressed
