@@ -6,7 +6,7 @@ Artevelde Dotfiles
 Tips
 ----
 
- - [Download][font-hack-download] and install [Hack][font-hack] Font Face.
+ - [Download][font-hack-download] and install [Hack][font-hack] typeface.
 
 ©2015 [Olivier Parent][docent-opr]
 
