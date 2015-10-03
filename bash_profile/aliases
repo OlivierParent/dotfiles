@@ -1,0 +1,7 @@
+# Add BASH aliases
+alias cmp="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/CMP/"
+alias ed="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/ED/"
+alias nmdad2="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/NMDAD-III/"
+alias nmdad3="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/NMDAD-III/"
+alias wd1="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/WD-I/"
+alias wd2="cd ~/Dropbox/Arteveldehogeschool/2015-16/OLOD\ 2015-16/WD-II/"

@@ -1,2 +1,2 @@
-# Android SDK tools path
+# Add Android SDK tools path
 export PATH=~/Library/Android/sdk/tools:$PATH
