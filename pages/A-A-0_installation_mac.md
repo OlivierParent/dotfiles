@@ -56,10 +56,11 @@ Open (or create) the `.bash_profile` file.
 $ nano ~/.bash_profile
 {% endhighlight %}
 
-Add this line to the `.bash_profile` file:
+Add these lines to the `.bash_profile` file:
 
 {% highlight bash %}
-source ~/Code/dotfiles/.bash_profile_proxy
+source ~/Code/dotfiles/bash_profile/dotfiles-scripts
+source ~/Code/dotfiles/bash_profile/proxy
 {% endhighlight %}
 
 Save with <kbd>&lt;ctrl&gt;</kbd>+<kbd>x</kbd>, and choose Yes (<kbd>y</kbd>) to write the file and then press <kbd>return</kbd> to accept the filename. 

@@ -42,9 +42,9 @@ $ git clone https://github.com/olivierparent/dotfiles
 
 **Environment Variables…** → **User variables**
 
-| Variable | Value                         |
-|:---------|:------------------------------|
-| `PATH`   | `%USERPROFILE%\Code\dotfiles` |
+| Variable | Value                                 |
+|:---------|:--------------------------------------|
+| `PATH`   | `%USERPROFILE%\Code\dotfiles\scripts` |
 {:.table}
 
 
