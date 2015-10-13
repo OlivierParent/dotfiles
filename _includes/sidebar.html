@@ -1,5 +1,5 @@
 
-<aside class="list-group">
+<aside class="list-group m-b">
 {% for node in nodes %}
 {% assign node_level = node.path | remove: "pages/" | split: "_" | first | split: "-" %}
 {% if node_level[0] == page_level[0] %}
