@@ -49,7 +49,6 @@ $ git clone https://github.com/olivierparent/dotfiles
 
 
 {% comment %}
-    ⚓ Hyperlinks
+<!-- ⚓ Hyperlinks -->
 {% endcomment %}
-
 [git]:                      http://git-scm.com

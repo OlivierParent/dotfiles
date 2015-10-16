@@ -58,13 +58,11 @@ If the script above doesn't work properly or isn't installed, you'll have to do 
 
 
 {% comment %}
-    ⚓ Abbreviations
+<!-- ⚓ Abbreviations -->
 {% endcomment %}
-
 *[CLI]:                     Command-Line Interface
 
 {% comment %}
-    ⚓ Hyperlinks
+<!-- ⚓ Hyperlinks -->
 {% endcomment %}
-
 [xcode]:                    https://developer.apple.com/xcode

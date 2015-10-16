@@ -79,13 +79,11 @@ $ proxy
 
 
 {% comment %}
-    ⚓ Abbreviations
+<!-- ⚓ Abbreviations -->
 {% endcomment %}
-
 *[CLI]:                     Command-Line Interface
 
 {% comment %}
-    ⚓ Hyperlinks
+<!-- ⚓ Hyperlinks -->
 {% endcomment %}
-
 [xcode]:                    https://developer.apple.com/xcode

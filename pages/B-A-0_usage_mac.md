@@ -54,14 +54,13 @@ Unset proxy server settings for this session:
 $ unset HTTP_PROXY HTTPS_PROXY FTP_PROXY NO_PROXY http_proxy https_proxy ftp_proxy no_proxy
 {% endhighlight %}
 
-{% comment %}
-    ⚓ Abbreviations
-{% endcomment %}
 
+{% comment %}
+<!-- ⚓ Abbreviations -->
+{% endcomment %}
 *[CLI]:                     Command-Line Interface
 
 {% comment %}
-    ⚓ Hyperlinks
+<!-- ⚓ Hyperlinks -->
 {% endcomment %}
-
 [xcode]:                    https://developer.apple.com/xcode
