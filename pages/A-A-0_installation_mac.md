@@ -34,7 +34,6 @@ Open **Terminal** and start the installation. Choose **Install**.
 $ xcode-select --install
 {% endhighlight %}
 
-
 Installation
 ------------
 
@@ -46,6 +45,16 @@ In your user folder, make a new subfolder `Code` and clone the `dotfiles` reposi
 $ mkdir -p ~/Code
 $ cd ~/Code
 $ git clone https://github.com/olivierparent/dotfiles
+{% endhighlight %}
+
+> ##### **Tip** *:bulb:*{:.pull-left .m-r}
+> ---
+> Update the dotfiles regularly with `git pull`.
+{:.alert .alert-info}
+
+{% highlight bash %}
+$ cd ~/Code/dotfiles/
+$ git pull
 {% endhighlight %}
 
 ### Set environment variables

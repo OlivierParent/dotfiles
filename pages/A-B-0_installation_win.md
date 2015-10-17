@@ -38,6 +38,16 @@ $ cd %USERPROFILE%\Code
 $ git clone https://github.com/olivierparent/dotfiles
 {% endhighlight %}
 
+> ##### **Tip** *:bulb:*{:.pull-left .m-r}
+> ---
+> Update the dotfiles regularly with `git pull`.
+{:.alert .alert-info}
+
+{% highlight bash %}
+$ cd %USERPROFILE%\Code\dotfiles\
+$ git pull
+{% endhighlight %}
+
 ### Set environment variables
 
 **Environment Variables…** → **User variables**
