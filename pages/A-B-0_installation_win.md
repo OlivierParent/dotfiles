@@ -57,6 +57,13 @@ $ git pull
 | `PATH`   | `%USERPROFILE%\Code\dotfiles\scripts` |
 {:.table}
 
+Create the variable `PATH` if it doesn't exist.
+
+> ##### **Caution** *:warning:*{:.pull-left .m-r}
+> ---
+> If the variable `PATH` already exists, use a **semicolon** (`;`) to separate the old value(s) and the new value.
+{:.alert .alert-warning}
+
 
 {% comment %}
 <!-- ⚓ Hyperlinks -->
