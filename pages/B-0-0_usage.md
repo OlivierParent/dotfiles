@@ -1,6 +1,6 @@
 ---
 layout    : page
-title     : Usage
+title     : usage
 title_long: Usage Instructions
 permalink : Usage/
 published : true

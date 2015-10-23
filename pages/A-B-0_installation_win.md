@@ -8,7 +8,7 @@ tags     :
 
 > ##### **Remark** *:point_up:*{:.pull-left .m-r}
 > ---
-> This installation guide is meant for *&nbsp;*{:.fa .fa-windows}**Windows *8.1***, but will most probably apply to other versions too.
+> This installation guide is meant for *&nbsp;*{:.fa .fa-windows}**Windows *10***, but will most probably apply to other versions too.
 {:.alert .alert-info}
 
 Prerequisites
