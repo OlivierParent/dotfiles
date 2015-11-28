@@ -1,6 +1,6 @@
 @mixin label($text: "Code", $background: $color-G, $text-color: white) {
     position: relative;
-    &:before{
+    &::before{
         background: $background;
         border-radius: 0 0 0 3px;
         color: $text-color;
@@ -11,29 +11,80 @@
         line-height: 2rem;
         padding: 0 .5rem 0 .7rem;
         position: absolute;
-        right: -1rem;
-        top: -1rem;
+        right: 0;
+        top: 0;
     }
 }
 
 $code-text-color: white;
-$code-bash: $color-A;
-$code-bat : $color-A;
-$code-code: $color-A;
-$code-css : $color-C;
-$code-html: $color-B;
-$code-ini : $color-A;
-$code-js  : $color-D;
-$code-php : $color-G;
-$code-ps  : $color-A;
-$code-scss: $color-H;
-$code-ts  : $color-F;
-$code-twig: $color-E;
-$code-yaml: $color-D;
+$code-bash   : $color-A;
+$code-bat    : $color-A;
+$code-code   : $color-A;
+$code-css    : $color-C;
+$code-gherkin: $color-E;
+$code-html   : $color-B;
+$code-ini    : $color-A;
+$code-json   : $color-A;
+$code-js     : $color-D;
+$code-php    : $color-G;
+$code-ps     : $color-A;
+$code-sql    : $color-F;
+$code-scss   : $color-H;
+$code-ts     : $color-F;
+$code-twig   : $color-E;
+$code-yaml   : $color-D;
 
-div.highlight {
+div.highlight,
+div.linenodiv {
     margin: 2rem 0;
     overflow: auto;
+    &.language- {
+        &bash {
+            @include label("Bash", $code-bash, $code-text-color);
+        }
+        &bat {
+            @include label("CMD", $code-bat, $code-text-color);
+        }
+        &css {
+            @include label("CSS", $code-css, $code-text-color);
+        }
+        &gherkin {
+            @include label("Gherkin", $code-gherkin, $code-text-color);
+        }
+        &html {
+            @include label("HTML", $code-html, $code-text-color);
+        }
+        &ini {
+            @include label("INI", $code-ini, $code-text-color);
+        }
+        &json {
+            @include label("JSON", $code-json, $code-text-color);
+        }
+        &js {
+            @include label("JS", $code-js, $code-text-color);
+        }
+        &jinja {
+            @include label("Twig", $code-twig, $code-text-color);
+        }
+        &php {
+            @include label("PHP", $code-php, $code-text-color)
+        }
+        &powershell {
+            @include label("PS", $code-ps, $code-text-color)
+        }
+        &scss {
+            @include label("SCSS", $code-scss, $code-text-color);
+        }
+        &sql {
+            @include label("SQL", $code-sql, $code-text-color);
+        }
+        &ts {
+            @include label("TS", $code-ts, $code-text-color);
+        }
+        &yaml {
+            @include label("YAML", $code-yaml, $code-text-color);
+        }
+    }
     pre {
         background-color: inherit;
         border: none;
@@ -41,47 +92,5 @@ div.highlight {
         color: inherit;
         padding: 1rem;
         margin: 0;
-        code {
-            @include label();
-            display: block;
-            &.language- {
-                &bash {
-                    @include label("Bash", $code-bash, $code-text-color);
-                }
-                &bat {
-                    @include label("CMD", $code-bat, $code-text-color);
-                }
-                &css {
-                    @include label("CSS", $code-css, $code-text-color);
-                }
-                &html {
-                    @include label("HTML", $code-html, $code-text-color);
-                }
-                &ini {
-                    @include label("INI", $code-ini, $code-text-color);
-                }
-                &js {
-                    @include label("JS", $code-js, $code-text-color);
-                }
-                &jinja {
-                    @include label("Twig", $code-twig, $code-text-color);
-                }
-                &php {
-                    @include label("PHP", $code-php, $code-text-color)
-                }
-                &powershell {
-                    @include label("PS", $code-ps, $code-text-color)
-                }
-                &scss {
-                    @include label("SCSS", $code-scss, $code-text-color);
-                }
-                &ts {
-                    @include label("TS", $code-ts, $code-text-color);
-                }
-                &yaml {
-                    @include label("YAML", $code-yaml, $code-text-color);
-                }
-            }
-        }
     }
 }

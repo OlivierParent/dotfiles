@@ -5,13 +5,13 @@
 {% if node_level[0] == page_level[0] %}
     <a class="list-group-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">
         {% if node_level[1] == "0" and node_level[2] == "0" %}
-        <h4>{{ node.title }}</h4>
+        <h1 class="h4">{{ node.title }}</h1>
         {% endif %}
         {% if node_level[1] != "0" and node_level[2] == "0" %}
-        <h5>{{ node.title }}</h5>
+        <h2 class="h5">{{ node.title }}</h2>
         {% endif %}
         {% if node_level[1] != "0" and node_level[2] != "0" %}
-        <h6>{{ node.title }}</h6>
+        <h3 class="h6">{{ node.title }}</h3>
         {% endif %}
     </a>
 {% endif %}

@@ -37,5 +37,11 @@
         if ($sideBarItems.length <= 1) {
             $sideBar.hide();
         }
+
+        // Highlighter Language Tag
+        var $highlights = $('.highlight > pre > code');
+        $highlights.each(function () {
+            $(this).parents('.highlight').addClass('language-' + $(this).attr('data-lang'));
+        });
     }
 })();

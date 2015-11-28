@@ -27,6 +27,10 @@ h4 {
     }
 }
 
+::selection {
+    background-color: $color-selection;
+}
+
 .content,
 .dropdown {
     counter-reset: h2-counter;
@@ -87,6 +91,65 @@ a {
     h6 {
         margin: .5em 0;
     }
+    sup[id^="fn"] {
+        background-color: #eee;
+        border-radius: .25rem;
+        &:hover {
+            background-color: #ccc;
+        }
+        a {
+            padding: 0 .25rem;
+            text-decoration: none;    
+        }
+    }
+}
+
+.footnotes {
+    border-top: 1px solid $color-A;
+    color: $color-A;
+    font-size: .75em;
+    p {
+        margin: .5rem 0;
+        a {
+            background-color: #eee;
+            border-radius: .25rem;
+            padding: 0 .25rem;
+            text-decoration: none;
+            &:hover {
+                background-color: #ccc;
+            }
+        }
+    }
+}
+
+aside {
+    .h4, .h5, .h6 {
+        margin-bottom: 0;
+    }
+    .h4 {
+        font-weight: bold;
+    }
+    .h6 {
+        padding-left: 1em; 
+    }
+}
+
+blockquote {
+    &.alert,
+    &.card {
+        h5 {
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+    &.card[id] {
+        padding-bottom: 0;
+    }
+}
+
+.screenshot {
+    box-shadow: 0 3px 5px 1px #999; 
+    max-width: 100%;
 }
 
 // footer
