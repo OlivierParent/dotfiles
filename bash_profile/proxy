@@ -5,11 +5,13 @@ function proxy() {
             PXY=http://proxy.arteveldehs.be:8080
             NOPXY=localhost,0.0.0.0,127.0.0.1,.local
             export HTTP_PROXY=$PXY HTTPS_PROXY=$PXY FTP_PROXY=$PXY NO_PROXY=$NOPXY http_proxy=$PXY https_proxy=$PXY ftp_proxy=$PXY no_proxy=$NOPXY
+            export VAGRANT_HTTP_PROXY=$PXY VAGRANT_HTTPS_PROXY=$PXY VAGRANT_FTP_PROXY=$PXY VAGRANT_NO_PROXY=$NOPXY
             unset PXY NOPXY
             echo "Artevelde University College Ghent proxy server settings are SET"
             ;;
         off)
             unset HTTP_PROXY HTTPS_PROXY FTP_PROXY NO_PROXY http_proxy https_proxy
+            unset VAGRANT_HTTP_PROXY VAGRANT_HTTPS_PROXY VAGRANT_FTP_PROXY VAGRANT_NO_PROXY
             echo "Artevelde University College Ghent proxy server settings are UNSET"
             ;;
         *)
