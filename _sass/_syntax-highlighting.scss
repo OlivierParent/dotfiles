@@ -27,6 +27,7 @@ $code-ini    : $color-A;
 $code-json   : $color-A;
 $code-js     : $color-D;
 $code-php    : $color-G;
+$code-po     : $color-A;
 $code-ps     : $color-A;
 $code-sql    : $color-F;
 $code-scss   : $color-H;
@@ -68,6 +69,9 @@ div.linenodiv {
         }
         &php {
             @include label("PHP", $code-php, $code-text-color)
+        }
+        &po {
+            @include label("PO", $code-po, $code-text-color)
         }
         &powershell {
             @include label("PS", $code-ps, $code-text-color)
