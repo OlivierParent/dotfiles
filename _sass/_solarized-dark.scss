@@ -8,8 +8,9 @@ SOLARIZED HEX      ROLE
 --------- -------- ------------------------------------------
 */
 $base01: #93a1a1; // body text / default code / primary content
-$base1 : #586e75; // comments / secondary content
-$base3 : #002b36; // background
+$base02: #586e75; // comments / secondary content
+$base03: #B58900;
+$bg    : #002b36; // background
 $orange: #cb4b16; // constants
 $red   : #dc322f; // regex, special keywords
 $blue  : #268bd2; // reserved keywords
@@ -17,9 +18,9 @@ $cyan  : #2aa198; // strings, numbers
 $green : #859900; // operators, other keywords
 
 .highlight {
-    background-color: $base3;
+    background-color: $bg;
     color: $base01;
-    .c   { color: $base1  } /* Comment */
+    .c   { color: $base02 } /* Comment */
     .err { color: $base01 } /* Error */
     .g   { color: $base01 } /* Generic */
     .k   { color: $green  } /* Keyword */
@@ -28,9 +29,9 @@ $green : #859900; // operators, other keywords
     .o   { color: $green  } /* Operator */
     .x   { color: $orange } /* Other */
     .p   { color: $base01 } /* Punctuation */
-    .cm  { color: $base1  } /* Comment.Multiline */
+    .cm  { color: $base02 } /* Comment.Multiline */
     .cp  { color: $green  } /* Comment.Preproc */
-    .c1  { color: $base1  } /* Comment.Single */
+    .c1  { color: $base02 } /* Comment.Single */
     .cs  { color: $green  } /* Comment.Special */
     .gd  { color: $cyan   } /* Generic.Deleted */
     .ge  { color: $base01; font-style: italic } /* Generic.Emph */
@@ -52,7 +53,7 @@ $green : #859900; // operators, other keywords
     .m   { color: $cyan   } /* Literal.Number */
     .s   { color: $cyan   } /* Literal.String */
     .na  { color: $base01 } /* Name.Attribute */
-    .nb  { color: #B58900 } /* Name.Builtin */
+    .nb  { color: $base03 } /* Name.Builtin */
     .nc  { color: $blue   } /* Name.Class */
     .no  { color: $orange } /* Name.Constant */
     .nd  { color: $blue   } /* Name.Decorator */
@@ -71,7 +72,7 @@ $green : #859900; // operators, other keywords
     .mh  { color: $cyan   } /* Literal.Number.Hex */
     .mi  { color: $cyan   } /* Literal.Number.Integer */
     .mo  { color: $cyan   } /* Literal.Number.Oct */
-    .sb  { color: $base1  } /* Literal.String.Backtick */
+    .sb  { color: $base02 } /* Literal.String.Backtick */
     .sc  { color: $cyan   } /* Literal.String.Char */
     .sd  { color: $base01 } /* Literal.String.Doc */
     .s2  { color: $cyan   } /* Literal.String.Double */
