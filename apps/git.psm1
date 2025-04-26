@@ -125,6 +125,7 @@ if (ExistCommand -Name git) {
                 [String]
                 $UserName
             )
+            git config --global init.defaultBranch main
             git config --global user.email "$EmailAddress"
             git config --global user.name "$UserName"
         }
