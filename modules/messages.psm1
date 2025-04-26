@@ -1,0 +1,139 @@
+function WriteMessage {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [String]
+        $Message,
+        [ValidateSet('Danger', 'Info', 'Mute', 'Primary', 'Strong', 'Success', 'Warning')]
+        [String]
+        $Type,
+        [Switch]
+        $Inverse,
+        [Switch]
+        $NoNewline
+    )
+    switch ($Type) {
+        # Black        Cyan         DarkCyan     DarkGreen    DarkRed      Gray         Magenta      White
+        # Blue         DarkBlue     DarkGray     DarkMagenta  DarkYellow   Green        Red          Yellow
+        'Danger' {
+            $Foreground = 'Red'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'White'
+            }
+        }
+        'Info' {
+            $Foreground = 'Cyan'
+            if ($Inverse) {
+                $Background = 'Blue'
+                $Foreground = 'White'
+            }
+        }
+        'Mute' {
+            $Foreground = 'DarkGray'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'Black'
+            }
+        }
+        'Primary' {
+            $Foreground = 'Magenta'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'White'
+            }
+        }
+        'Strong' {
+            $Foreground = 'White'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'Black'
+            }
+        }
+        'Success' {
+            $Foreground = 'Green'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'Black'
+            }
+        }
+        'Warning' {
+            $Foreground = 'Yellow'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'Black'
+            }
+        }
+        Default {
+            $Foreground = 'Gray'
+            if ($Inverse) {
+                $Background = $Foreground
+                $Foreground = 'Black'
+            }
+        }
+    }
+    if ($Background) {
+        Write-Host " ${Message} " -BackgroundColor $Background -ForegroundColor $Foreground -NoNewline:$NoNewline;
+    }
+    else {
+        Write-Host "${Message}" -ForegroundColor $Foreground -NoNewline:$NoNewline;
+    }
+}
+
+# Messages
+# --------
+
+function WriteMessage_Administrator {
+    WriteMessage -Type Danger -Message 'Run this window as administrator and try again.'
+}
+
+function WriteMessage_Fail {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Installation', 'Removal', 'Uninstallation', 'Updating')]
+        [String]
+        $Action
+    )
+    WriteMessage -Type Danger -Message "${Action} was not completed successfully."
+}
+
+function WriteMessage_Subtitle {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('install', 'remove', 'reset', 'uninstall', 'update')]
+        [String]
+        $Action,
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('APT', 'Homebrew', 'LxRun', 'npm', 'NVM', 'Ruby', 'Scoop', 'WSL')]
+        [String]
+        $With
+    )
+    WriteMessage -Type Info -Message "Using '${With}' to ${Action}..."
+}
+
+
+function WriteMessage_Title {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Disabling', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Updating')]
+        [String]
+        $Action,
+        [Parameter(Mandatory = $true)]
+        [String]
+        $Name
+    )
+    WriteMessage -Type Primary -Inverse -Message "${Action} '${Name}'"
+}
+
+function WriteMessage_Version {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [String]
+        $Name,
+        [Switch]
+        $Fail,
+        [Parameter(Mandatory = $true)]
+        [String]
+        $Version
+    )
+    WriteMessage -Type $(if ($Fail) { 'Danger' } else { 'Success' }) -Message "Installed version of '${Name}': ${Version}"
+}

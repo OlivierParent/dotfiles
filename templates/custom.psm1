@@ -1,0 +1,1 @@
+WriteMessage -Type Success -Inverse -Message 'Custom PowerShell Module'
