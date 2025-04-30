@@ -1,9 +1,9 @@
-function GetLongList {
+function Get-DF_LongList {
     Get-ChildItem -Force "${args}"
 }
-New-Alias -Name ll -Value GetLongList
+New-Alias -Name ll -Value Get-DF_LongList
 
-function OpenFolderInGui {
+function Show-DF_FolderGui {
     Param(
         [Int]
         [ValidateRange(0, 9)]
@@ -23,12 +23,12 @@ function OpenFolderInGui {
         Invoke-Expression -Command "${App} ${Path}"
     }
 }
-New-Alias -Name f -Value OpenFolderInGui
+New-Alias -Name f -Value Show-DF_FolderGui
 
-function OpenHostsFile {
-    if (ExistCommand -Name code) {
+function Open-DF_HostsFile {
+    if (Test-DF_Command -Name code) {
         if ($IsMacOS) {
-            WriteMessage -Type Warning -Message 'Please close all instances of Visual Studio Code before continuing'
+            Write-DF_Message -Type Warning -Message 'Please close all instances of Visual Studio Code before continuing'
             [void](Read-Host 'Press Enter to continue…')
             sudo code /etc/hosts
         }
@@ -37,32 +37,32 @@ function OpenHostsFile {
         }
     }
     else {
-        WriteMessage -Type Warning -Message "Please install Visual Studio Code and install the 'code' command in PATH."
+        Write-DF_Message -Type Warning -Message "Please install Visual Studio Code and install the 'code' command in PATH."
     }
 }
-New-Alias -Name hosts -Value OpenHostsFile
+New-Alias -Name hosts -Value Open-DF_HostsFile
 
-function SetLocationPath ([String] $Path, [String] $Directory) {
+function Set-DF_LocationPath ([String] $Path, [String] $Directory) {
     $Location = Join-Path -Path $Path -ChildPath $Directory
     if (Test-Path -Path $Location) {
         Push-Location $Location
     }
     else {
-        WriteMessage -Type Danger -Message "Cannot find path '${Location}' because it does not exist."
-        WriteMessage -Type Info -Message 'Available directories:'
+        Write-DF_Message -Type Danger -Message "Cannot find path '${Location}' because it does not exist."
+        Write-DF_Message -Type Info -Message 'Available directories:'
         Get-ChildItem -Name $Path | Write-Host -ForegroundColor DarkGray
     }
 }
 
-function SetLocationPathDesktop {
+function Set-DF_LocationPathDesktop {
     $DesktopPath = [io.path]::Combine($HOME, 'Desktop')
     if (Test-Path -Path $DesktopPath) {
         Set-Location -Path $DesktopPath
     }
 }
-New-Alias -Name dt -Value SetLocationPathDesktop
+New-Alias -Name dt -Value Set-DF_LocationPathDesktop
 
-function SetLocationPath_DotfilesInstall {
+function Set-DF_LocationPath_DotfilesInstall {
     Param(
         [Switch]
         [Alias('c')]
@@ -78,9 +78,9 @@ function SetLocationPath_DotfilesInstall {
         Set-Location -Path $DotfilesInstallPath
     }
 }
-New-Alias -Name d -Value SetLocationPath_DotfilesInstall
+New-Alias -Name d -Value Set-DF_LocationPath_DotfilesInstall
 
-function SetLocationPath_Code {
+function Set-DF_LocationPathCode {
     [CmdletBinding()]
     Param()
     DynamicParam {
@@ -110,12 +110,12 @@ function SetLocationPath_Code {
         catch {}
     }
     Process {
-        SetLocationPath -Path $Path -Directory $Directory
+        Set-DF_LocationPath -Path $Path -Directory $Directory
     }
 }
-New-Alias -Name c -Value SetLocationPath_Code
+New-Alias -Name c -Value Set-DF_LocationPathCode
 
-function SetLocationPath_CodeLearning {
+function Set-DF_LocationPathCodeLearning {
     [CmdletBinding()]
     Param()
     DynamicParam {
@@ -145,12 +145,12 @@ function SetLocationPath_CodeLearning {
         catch {}
     }
     Process {
-        SetLocationPath -Path $Path -Directory $Directory
+        Set-DF_LocationPath -Path $Path -Directory $Directory
     }
 }
-New-Alias -Name cl -Value SetLocationPath_CodeLearning
+New-Alias -Name cl -Value Set-DF_LocationPathCodeLearning
 
-function SetLocationPath_CodeTest {
+function Set-DF_LocationPathCodeTest {
     [CmdletBinding()]
     Param()
     DynamicParam {
@@ -180,12 +180,12 @@ function SetLocationPath_CodeTest {
         catch {}
     }
     Process {
-        SetLocationPath -Path $Path -Directory $Directory
+        Set-DF_LocationPath -Path $Path -Directory $Directory
     }
 }
-New-Alias -Name ct -Value SetLocationPath_CodeTest
+New-Alias -Name ct -Value Set-DF_LocationPathCodeTest
 
-function SetLocationPath_Home {
+function Set-DF_LocationPathHome {
     [CmdletBinding()]
     Param()
     DynamicParam {
@@ -215,18 +215,18 @@ function SetLocationPath_Home {
         catch {}
     }
     Process {
-        SetLocationPath -Path $Path -Directory $Directory
+        Set-DF_LocationPath -Path $Path -Directory $Directory
     }
 }
-New-Alias -Name ~ -Value SetLocationPath_Home
+New-Alias -Name ~ -Value Set-DF_LocationPathHome
 
-function SetLocationPath_UpOne ([String] $Directory) {
-    SetLocationPath -Path .. -Directory $Directory
+function Set-DF_LocationPathUpOne ([String] $Directory) {
+    Set-DF_LocationPath -Path .. -Directory $Directory
 }
-New-Alias -Name .. -Value SetLocationPath_UpOne
+New-Alias -Name .. -Value Set-DF_LocationPathUpOne
 
-function SetLocationPath_UpTwo ([String] $Directory) {
+function Set-DF_LocationPathUpTwo ([String] $Directory) {
     $Path = Join-Path -Path .. -ChildPath ..
-    SetLocationPath -Path $Path -Directory $Directory
+    Set-DF_LocationPath -Path $Path -Directory $Directory
 }
-New-Alias -Name ... -Value SetLocationPath_UpTwo
+New-Alias -Name ... -Value Set-DF_LocationPathUpTwo

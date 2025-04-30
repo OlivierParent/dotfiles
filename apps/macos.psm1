@@ -7,8 +7,8 @@ if ($IsMacOS) {
     # Utility functions
     # -----------------
 
-    function Restart_SshAgent {
-        WriteMessage_Title -Action 'Restarting' -Name 'SSH Agent'
+    function Restart-DF_SshAgent {
+        Write-DF_Message_Title -Action 'Restarting' -Name 'SSH Agent'
         sh -c 'launchctl stop /System/Library/LaunchAgents/org.openbsd.ssh-agent'
         sh -c 'launchctl start /System/Library/LaunchAgents/org.openbsd.ssh-agent'
     }

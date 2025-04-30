@@ -5,44 +5,44 @@
 # Installation Management
 # -----------------------
 
-function Install_Node {
-    WriteMessage_Title -Action 'Installing' -Name 'Node.js'
+function Install-DF_Node {
+    Write-DF_Message_Title -Action 'Installing' -Name 'Node.js'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'NVM'
+        Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
         # nvm install
         nvm install --lts
         
     }
     elseif ($IsWindows) {
         $Latest = (((nvm list available) | Select-Object -Index 3).Split('|') | Select-Object -Index 2).Trim()
-        WriteMessage_Subtitle -Action 'install' -With 'NVM'
+        Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
         nvm.exe install $Latest
     }
-    Update_Npm
+    Update-DF_Npm
 }
 
-function Install_Nvm {
-    WriteMessage_Title -Action 'Installing' -Name 'NVM (Node Version Manager)'
+function Install-DF_Nvm {
+    Write-DF_Message_Title -Action 'Installing' -Name 'NVM (Node Version Manager)'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Homebrew'
         bash -c 'brew install nvm'
     }
     elseif ($IsWindows) {
-        WriteMessage_Subtitle -Action 'install' -With 'Scoop'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Scoop'
         cmd /c 'scoop install nvm'
     }
-    if (ExistCommand -Name nvm) {
-        WriteMessage_Version -Name 'NVM' -Version $(if ($IsMacOS) { nvm --version } elseif ($IsWindows) { nvm version })
+    if (Test-DF_Command -Name nvm) {
+        Write-DF_Message_Version -Name 'NVM' -Version $(if ($IsMacOS) { nvm --version } elseif ($IsWindows) { nvm version })
     } 
     else {
-        WriteMessage_Fail -Action 'Installation'
+        Write-DF_Message_Fail -Action 'Installation'
     }
 }
 
 # Commands
 # --------
 
-function Init_Node {
+function Initialize-DF_Node {
     if ($IsMacOS) {
         $Version = ReadConfig -Name Node
         if ($Version) {
@@ -51,7 +51,7 @@ function Init_Node {
     }
 }
 
-function Set_Node {
+function Set-DF_Node {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -81,37 +81,37 @@ function Set_Node {
             return
         }
     }
-    WriteConfig -Name Node -Value $null
-    WriteMessage -Type Warning -Message "Version '${Version}' of Node.js is not installed. Please install with nvm."
+    Write-DF_Config -Name Node -Value $null
+    Write-DF_Message -Type Warning -Message "Version '${Version}' of Node.js is not installed. Please install with nvm."
 }
 
-function Show_Node {
+function Show-DF_Node {
     $Version = ReadConfig -Name Node
     
     
     if ($Version) {
-        WriteMessage_Version -Name 'Node.js' -Version $Version
+        Write-DF_Message_Version -Name 'Node.js' -Version $Version
     }
     else {
-        WriteMessage_Version -Name 'Node.js' -Version 'Undefined'
+        Write-DF_Message_Version -Name 'Node.js' -Version 'Undefined'
     }
 }
 
-function Update_Npm {
-    WriteMessage_Title -Action 'Updating' -Name 'npm'
-    if (ExistCommand -Name npm) {
-        WriteMessage_Subtitle -Action 'update' -With 'npm'
+function Update-DF_Npm {
+    Write-DF_Message_Title -Action 'Updating' -Name 'npm'
+    if (Test-DF_Command -Name npm) {
+        Write-DF_Message_Subtitle -Action 'update' -With 'npm'
         npm install --global npm@latest
-        WriteMessage_Version -Name 'Node.js' -Version (node --version)
-        WriteMessage_Version -Name 'npm' -Version (npm --version)
-        WriteMessage_Version -Name 'npx' -Version (npx --version)
+        Write-DF_Message_Version -Name 'Node.js' -Version (node --version)
+        Write-DF_Message_Version -Name 'npm' -Version (npm --version)
+        Write-DF_Message_Version -Name 'npx' -Version (npx --version)
     }
     else {
-        WriteMessage_Fail -Action 'Updating'
+        Write-DF_Message_Fail -Action 'Updating'
     }
 }
 
-function Use_Node {
+function Use-DF_Node {
     Param(
         [ValidateSet(20, 21, 22, 23)]
         [Int16]
@@ -128,17 +128,17 @@ function Use_Node {
     }
 }
 
-function Command_WebPack {
+function Invoke-DF_WebPack {
     if (Test-Path -Path ($Path = [io.path]::Combine('.', 'node_modules', '.bin', 'webpack'))) {
         Invoke-Expression -Command "${Path} ${args}"
     }
-    elseif (ExistCommand -Name webpack) {
+    elseif (Test-DF_Command -Name webpack) {
         Invoke-Expression -Command ((Get-Command -Name webpack -Type Application).Source + " ${args}")
     }
     else {
-        WriteMessage -Type Warning -Message 'Webpack is not available from this directory, nor is it installed globally.'
+        Write-DF_Message -Type Warning -Message 'Webpack is not available from this directory, nor is it installed globally.'
     }
 }
-New-Alias -Name webpack -Value WebpackCommand
+New-Alias -Name webpack -Value Invoke-DF_WebPack
 
-Init_Node
+Initialize-DF_Node

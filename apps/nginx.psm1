@@ -5,17 +5,17 @@
 # Installation Management
 # -----------------------
 
-function Install_Nginx {
-    WriteMessage_Title -Action 'Installing' -Name 'NGINX'
+function Install-DF_Nginx {
+    Write-DF_Message_Title -Action 'Installing' -Name 'NGINX'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Homebrew'
         bash -c 'brew install nginx --devel'
     }
     elseif ($IsWindows) {
-        WriteMessage_Subtitle -Action 'install' -With 'Scoop'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Scoop'
         cmd /c 'scoop install nginx'
     }
-    WriteMessage -Type Info -Message 'Configuring...'
+    Write-DF_Message -Type Info -Message 'Configuring...'
     $FileName = 'nginx.conf'
     $SourcePath = [io.path]::Combine($HOME, 'dotfiles', 'settings', $FileName)
     $DestinationPath = [io.path]::Combine($HOME, '.dotfiles', $FileName)
@@ -29,11 +29,11 @@ function Install_Nginx {
     }
     $FileContent = (Get-Content -Path $DestinationPath).Replace('»NGINX-CONFIG-DIRECTORY«', $NginxConfigDirectory)
     Set-Content -Path $DestinationPath -Value $FileContent
-    if (ExistCommand -Name nginx) {
+    if (Test-DF_Command -Name nginx) {
         $Version = (nginx -v)
-        WriteMessage_Version -Name 'NGINX' -Version $Version
+        Write-DF_Message_Version -Name 'NGINX' -Version $Version
     }
     else {
-        WriteMessage_Fail -Action 'Installation'
+        Write-DF_Message_Fail -Action 'Installation'
     }
 }

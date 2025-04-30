@@ -1,5 +1,11 @@
 # Documentation
 
+*[TBD]: To be done
+
+## See
+
+[Approved Verbs for PowerShell Commands](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands)
+
 ## Installation
 
 ### Linux
@@ -16,7 +22,12 @@ TBD
    1. [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701).
    2. [PowerShell](https://apps.microsoft.com/detail/9mz1snwt0n5d).
    3. [Visual Studio Code](https://apps.microsoft.com/detail/XP9KHM4BK9FZ7Q)
-2. Download https://github.com/OlivierParent/dotfiles/archive/refs/heads/main.zip
-3. Extract 
-4. `Set-Location $HOME`
-5. C:\Users\«username»
+2. Download and install the dotfiles from within PowerShell
+   ```powershell
+   PS > Set-Location $HOME
+   PS > Invoke-WebRequest https://github.com/OlivierParent/dotfiles/archive/refs/heads/main.zip -OutFile dotfiles.zip
+   PS > Expand-Archive .\dotfiles.zip .
+   PS > Rename-Item .\dotfiles-main\ dotfiles
+   PS > Set-Location dotfiles
+   PS > .\install.ps1
+   ````

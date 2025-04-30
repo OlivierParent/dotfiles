@@ -1,7 +1,7 @@
 # Font
 # ====
 
-function InstallFont {
+function Install-DF_Font {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('FiraCode', 'Hack', 'Hasklig', 'JetBrainsMono', 'Monaspace')]
@@ -20,16 +20,16 @@ function InstallFont {
         $OutFile = Join-Path -Path $env:TEMP -ChildPath $Urn
         $TempPath = "${env:TEMP}${Typeface}\"
     }
-    WriteMessage -Type Info -Inverse -Message 'Installing Typeface: ' -NoNewline
+    Write-DF_Message -Type Info -Inverse -Message 'Installing Typeface: ' -NoNewline
     switch ($Typeface) {
         'FiraCode' {
-            WriteMessage -Type Info -Inverse -Message 'Fira Code by Nikita Prokopov'
-            WriteMessage -Type Info -Message 'Downloading Fira Code typeface...'
+            Write-DF_Message -Type Info -Inverse -Message 'Fira Code by Nikita Prokopov'
+            Write-DF_Message -Type Info -Message 'Downloading Fira Code typeface...'
             $Response = Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/tonsky/FiraCode/releases/latest
             $Uri = $Response.assets.zipball_url
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile
             if (Test-Path -Path $OutFile) {
-                WriteMessage -Type Info -Message 'Installing Fira Code typeface...'
+                Write-DF_Message -Type Info -Message 'Installing Fira Code typeface...'
                 if ($IsMacOS) {
                     $Output = unzip $OutFile **/*.$FontFormat -d $TempPath -o
                     Move-Item -Path ${TempPath}${FontFormat}/*.${FontFormat} -Destination $DestinationPath -Force
@@ -43,13 +43,13 @@ function InstallFont {
         }
         'Hack' {
             $FontFormat = 'ttf'
-            WriteMessage -Type Info -Inverse -Message 'Hack by Chris Simpkins'
-            WriteMessage -Type Info -Message 'Downloading Hack typeface'
+            Write-DF_Message -Type Info -Inverse -Message 'Hack by Chris Simpkins'
+            Write-DF_Message -Type Info -Message 'Downloading Hack typeface'
             $Response = Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/source-foundry/Hack/releases/latest
             $Uri = ($Response.assets | Where-Object { $_.name -match "^Hack-(.+)-${FontFormat}.zip$" }).browser_download_url
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile
             if (Test-Path -Path $OutFile) {
-                WriteMessage -Type Info -Message 'Installing Hack typeface...'
+                Write-DF_Message -Type Info -Message 'Installing Hack typeface...'
                 if ($IsMacOS) {
                     $Output = unzip $OutFile *.${FontFormat} -d $TempPath -o
                     Move-Item -Path ${TempPath}*.${FontFormat} -Destination $DestinationPath -Force
@@ -62,14 +62,14 @@ function InstallFont {
             }
         }
         'Hasklig' {
-            WriteMessage -Type Info -Inverse -Message 'Hasklig by Ian Tuomi...'
-            WriteMessage -Type Info -Message 'Downloading Hasklig typeface...'
+            Write-DF_Message -Type Info -Inverse -Message 'Hasklig by Ian Tuomi...'
+            Write-DF_Message -Type Info -Message 'Downloading Hasklig typeface...'
             $Response = Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/i-tu/Hasklig/releases?per_page=1
             # $Response = Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/i-tu/Hasklig/releases/latest
             $Uri = $Response.assets.browser_download_url
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile
             if (Test-Path -Path $OutFile) {
-                WriteMessage -Type Info -Message 'Installing Hasklig typeface...'
+                Write-DF_Message -Type Info -Message 'Installing Hasklig typeface...'
                 if ($IsMacOS) {
                     $Output = unzip $OutFile *.${FontFormat} -d $TempPath -o
                     Move-Item -Path ${TempPath}*.${FontFormat} -Destination $DestinationPath -Force
@@ -83,12 +83,12 @@ function InstallFont {
         }
         'JetBrainsMono' {
             $FontFormat = 'ttf'
-            WriteMessage -Type Info -Inverse -Message 'JetBrains Mono by Philipp Nurullin...'
-            WriteMessage -Type Info -Message 'Downloading JetBrains Mono typeface...'
+            Write-DF_Message -Type Info -Inverse -Message 'JetBrains Mono by Philipp Nurullin...'
+            Write-DF_Message -Type Info -Message 'Downloading JetBrains Mono typeface...'
             $Uri = 'https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip'
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile
             if (Test-Path -Path $OutFile) {
-                WriteMessage -Type Info -Message 'Installing JetBrains Mono typeface...'
+                Write-DF_Message -Type Info -Message 'Installing JetBrains Mono typeface...'
                 if ($IsMacOS) {
                     $Output = unzip $OutFile *.${FontFormat} -d $TempPath -o
                     Move-Item -Path ${TempPath}*.${FontFormat} -Destination $DestinationPath -Force
@@ -101,12 +101,12 @@ function InstallFont {
             }
         }
         'Monaspace' {
-            WriteMessage -Type Info -Inverse -Message 'Monaspace by GitHub...'
-            WriteMessage -Type Info -Message 'Downloading GitHub Monaspace family of typefaces...'
+            Write-DF_Message -Type Info -Inverse -Message 'Monaspace by GitHub...'
+            Write-DF_Message -Type Info -Message 'Downloading GitHub Monaspace family of typefaces...'
             $Uri = 'https://github.com/githubnext/monaspace/releases/download/v1.000/monaspace-v1.000.zip'
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile
             if (Test-Path -Path $OutFile) {
-                WriteMessage -Type Info -Message 'Installing GitHub Monaspace family of typefaces...'
+                Write-DF_Message -Type Info -Message 'Installing GitHub Monaspace family of typefaces...'
                 if ($IsMacOS) {
                     $Output = unzip $OutFile *.${FontFormat} -d $TempPath -o
                     Move-Item -Path ${TempPath}*.${FontFormat} -Destination $DestinationPath -Force

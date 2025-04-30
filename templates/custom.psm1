@@ -1,1 +1,1 @@
-WriteMessage -Type Success -Inverse -Message 'Custom PowerShell Module'
+Write-DF_Message -Type Success -Inverse -Message 'Custom PowerShell Module'

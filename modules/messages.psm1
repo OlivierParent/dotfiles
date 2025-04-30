@@ -1,4 +1,4 @@
-function WriteMessage {
+function Write-DF_Message {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -82,21 +82,21 @@ function WriteMessage {
 # Messages
 # --------
 
-function WriteMessage_Administrator {
-    WriteMessage -Type Danger -Message 'Run this window as administrator and try again.'
+function Write-DF_Message_Administrator {
+    Write-DF_Message -Type Danger -Message 'Run this window as administrator and try again.'
 }
 
-function WriteMessage_Fail {
+function Write-DF_Message_Fail {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('Installation', 'Removal', 'Uninstallation', 'Updating')]
         [String]
         $Action
     )
-    WriteMessage -Type Danger -Message "${Action} was not completed successfully."
+    Write-DF_Message -Type Danger -Message "${Action} was not completed successfully."
 }
 
-function WriteMessage_Subtitle {
+function Write-DF_Message_Subtitle {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('install', 'remove', 'reset', 'uninstall', 'update')]
@@ -107,11 +107,11 @@ function WriteMessage_Subtitle {
         [String]
         $With
     )
-    WriteMessage -Type Info -Message "Using '${With}' to ${Action}..."
+    Write-DF_Message -Type Info -Message "Using '${With}' to ${Action}..."
 }
 
 
-function WriteMessage_Title {
+function Write-DF_Message_Title {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('Disabling', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Updating')]
@@ -121,10 +121,10 @@ function WriteMessage_Title {
         [String]
         $Name
     )
-    WriteMessage -Type Primary -Inverse -Message "${Action} '${Name}'"
+    Write-DF_Message -Type Primary -Inverse -Message "${Action} '${Name}'"
 }
 
-function WriteMessage_Version {
+function Write-DF_Message_Version {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -135,5 +135,5 @@ function WriteMessage_Version {
         [String]
         $Version
     )
-    WriteMessage -Type $(if ($Fail) { 'Danger' } else { 'Success' }) -Message "Installed version of '${Name}': ${Version}"
+    Write-DF_Message -Type $(if ($Fail) { 'Danger' } else { 'Success' }) -Message "Installed version of '${Name}': ${Version}"
 }

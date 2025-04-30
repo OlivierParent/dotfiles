@@ -4,6 +4,17 @@
 
 # Commands
 # --------
+class Blender {
+    [string] $Version = '4.4'
+    [string] $Path = ''
+    [string] $AddOnPath = ''
+    
+    static [string]GetOperatingSystemInfo() {
+        $os = Get-CimInstance -ClassName Win32_OperatingSystem
+        return "OS: $($os.Caption), Version: $($os.Version), Build: $($os.BuildNumber)"
+    }
+
+}
 
 if ($IsWindows) {
 
@@ -40,7 +51,7 @@ function Show-DF_BlenderWeb {
 # Paths
 # -----
 
-function Set-DF_LocationPathBlenderAddOns {
+function Set-DF_LocationPath_BlenderAddOns {
     Param(
         [String]
         $Version = '4.4'
@@ -62,4 +73,4 @@ function Set-DF_LocationPathBlenderAddOns {
         Write-DF_Message -Type Danger -Message "Cannot find path '${BlenderPath}' because it does not exist."
     }
 }
-New-Alias -Name ba -Value Set-DF_LocationPathBlenderAddOns
+New-Alias -Name ba -Value Set-DF_LocationPath_BlenderAddOns

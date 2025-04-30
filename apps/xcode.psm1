@@ -7,8 +7,8 @@ if ($IsMacOS) {
     # Installation Management
     # -----------------------
 
-    function Reinstall_Xcode {
-        WriteMessage_Title -Action 'Reinstalling' -Name 'Xcode'
+    function Install-DF_Xcode {
+        Write-DF_Message_Title -Action 'Reinstalling' -Name 'Xcode'
         sh -c 'sudo rm -rf $(xcode-select -print-path)'
         sh -c 'xcode-select --install'
     }

@@ -4,7 +4,7 @@
 # Commands
 # --------
 
-function OpenUri {
+function Start-DF_Browser {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -126,4 +126,4 @@ function OpenUri {
         }
     }
 }
-New-Alias -Name o -Value OpenUri
+New-Alias -Name b -Value Start-DF_Browser

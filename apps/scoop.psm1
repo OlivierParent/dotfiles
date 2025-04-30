@@ -7,50 +7,51 @@ if ($IsWindows) {
     # Installation Management
     # -----------------------
 
-    function Install_Scoop {
-        WriteMessage -Type Primary -Inverse -Message 'Installing Scoop'
-        WriteMessage -Type Info -Inverse -Message 'Installing...'
+    function Install-DF_Scoop {
+        Write-DF_Message -Type Primary -Inverse -Message 'Installing Scoop'
+        Write-DF_Message -Type Info -Inverse -Message 'Installing...'
         Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
         Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-        if (ExistCommand -Name scoop) {
+        if (Test-DF_Command -Name scoop) {
             cmd /c 'scoop bucket add extras'
         }
         else {
-            WriteMessage_Fail -Action 'Installation'
+            Write-DF_Message_Fail -Action 'Installation'
         }
     }
 
-    function Uninstall_Scoop {
-        WriteMessage_Title -Action 'Uninstalling' -Name 'Scoop'
-        if (ExistCommand -Name scoop) {
-            WriteMessage_Subtitle -Action 'uninstall' -With 'Scoop'
+    function Uninstall-DF_Scoop {
+        Write-DF_Message_Title -Action 'Uninstalling' -Name 'Scoop'
+        if (Test-DF_Command -Name scoop) {
+            Write-DF_Message_Subtitle -Action 'uninstall' -With 'Scoop'
             cmd /c 'scoop uninstall scoop'
-        } else {
-            WriteMessage_Fail -Action 'Uninstallation'
+        }
+        else {
+            Write-DF_Message_Fail -Action 'Uninstallation'
         }
     }
 
-    function Update_Scoop {
-        WriteMessage_Title -Action 'Updating' -Name 'Scoop'
-        if (ExistCommand -Name scoop) {
-            WriteMessage -Type Info -Message '[1/4] Updating Scoop...'
+    function Update-DF_Scoop {
+        Write-DF_Message_Title -Action 'Updating' -Name 'Scoop'
+        if (Test-DF_Command -Name scoop) {
+            Write-DF_Message -Type Info -Message '[1/4] Updating Scoop...'
             cmd /c 'scoop update'
-            WriteMessage -Type Info -Message '[2/4] Updating apps...'
+            Write-DF_Message -Type Info -Message '[2/4] Updating apps...'
             cmd /c 'scoop update *'
-            WriteMessage -Type Info -Message '[3/4] Cleaning up apps...'
+            Write-DF_Message -Type Info -Message '[3/4] Cleaning up apps...'
             cmd /c 'scoop cleanup *'
-            WriteMessage -Type Info -Message '[4/4] Clearing cache...'
+            Write-DF_Message -Type Info -Message '[4/4] Clearing cache...'
             cmd /c 'scoop cache rm *'
         }
     }
 
-    if (ExistCommand -Name scoop) {
+    if (Test-DF_Command -Name scoop) {
 
         # Help
         # ----
 
-        function Open_Scoop_Web {
-            OpenUri https://scoop.sh/
+        function Show-DF_ScoopWeb {
+            Start-DF_Browser https://scoop.sh/
         }
 
     }

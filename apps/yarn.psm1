@@ -5,28 +5,28 @@
 # Installation Management
 # -----------------------
 
-function Install_Yarn {
-    WriteMessage_Title -Action 'Installing' -Name 'Yarn'
+function Install-DF_Yarn {
+    Write-DF_Message_Title -Action 'Installing' -Name 'Yarn'
     if ($IsMacOS -or $IsWindows) {
         Update_Npm
-        WriteMessage_Subtitle -Action 'install' -With 'npm'
+        Write-DF_Message_Subtitle -Action 'install' -With 'npm'
         npm install --global yarn
     }
     elseif ($IsLinux) {
-        WriteMessage_Subtitle -Action 'install' -With 'APT'
+        Write-DF_Message_Subtitle -Action 'install' -With 'APT'
         sh -c 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -'
         sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
         sh -c 'sudo apt update && sudo apt install yarn'
     }
-    if (ExistCommand -Name yarn) {
-        WriteMessage_Version -Name 'Yarn' -Version (yarn --version)
+    if (Test-DF_Command -Name yarn) {
+        Write-DF_Message_Version -Name 'Yarn' -Version (yarn --version)
     }
     else {
-        WriteMessage_Fail -Action 'Installation'
+        Write-DF_Message_Fail -Action 'Installation'
     }
 }
 
-if (ExistCommand -Name yarn) {
+if (Test-DF_Command -Name yarn) {
 
     # Commands
     # --------
@@ -34,8 +34,8 @@ if (ExistCommand -Name yarn) {
     # Help
     # ----
 
-    function Open_Yarn_Web {
-        OpenUri https://yarnpkg.com/
+    function Show-DF_YarnWeb {
+        Start-DF_Browser https://yarnpkg.com/
     }
 
 }

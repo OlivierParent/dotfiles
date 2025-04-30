@@ -1,0 +1,7 @@
+New-Variable -Name DotfilesConfigPath -Value ([io.path]::Combine($Global:HOME, '.dotfiles', 'config.json')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesCustomModulePath -Value ([io.path]::Combine($Global:HOME, '.dotfiles', 'custom.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesCustomModuleTemplatePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'templates', 'custom.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesName -Value (Get-Content -Path (Join-Path -Path $Global:DotfilesInstallPath -ChildPath VERSION) | Select-Object -First 1) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesNewAppModulePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'apps', 'module.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesNewAppModuleTemplatePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'templates', 'module.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
+New-Variable -Name DotfilesVersion -Value (Get-Content -Path (Join-Path -Path $Global:DotfilesInstallPath -ChildPath VERSION) | Select-Object -First 1 -Skip 1) -Option Constant -Scope Global -ErrorAction SilentlyContinue

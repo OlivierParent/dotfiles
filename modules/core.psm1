@@ -1,12 +1,4 @@
-New-Variable -Name DotfilesConfigPath -Value ([io.path]::Combine($HOME, '.dotfiles', 'config.json')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesCustomModulePath -Value ([io.path]::Combine($HOME, '.dotfiles', 'custom.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesCustomModuleTemplatePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'templates', 'custom.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesName -Value (Get-Content -Path (Join-Path -Path $Global:DotfilesInstallPath -ChildPath VERSION) | Select-Object -First 1) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesNewAppModulePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'apps', 'module.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesNewAppModuleTemplatePath -Value ([io.path]::Combine($Global:DotfilesInstallPath, 'templates', 'module.psm1')) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-New-Variable -Name DotfilesVersion -Value (Get-Content -Path (Join-Path -Path $Global:DotfilesInstallPath -ChildPath VERSION) | Select-Object -First 1 -Skip 1) -Option Constant -Scope Global -ErrorAction SilentlyContinue
-
-function ExistCommand {
+function Test-DF_Command {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -15,7 +7,7 @@ function ExistCommand {
     return [Bool](Get-Command -Name $Name -CommandType Application -ErrorAction Ignore)
 }
 
-function SetEnvironment {
+function Set-DF_Environment {
     if ($IsMacOS) {
         $Locale = 'nl_BE.UTF-8'
         [System.Environment]::SetEnvironmentVariable('LANG', $Locale)
@@ -73,9 +65,9 @@ function SetEnvironment {
         [System.Environment]::SetEnvironmentVariable('Path', $EnvironmentPath -join [io.path]::PathSeparator)
     }
 }
-SetEnvironment
+Set-DF_Environment
 
-function AddToEnvironmentPath {
+function Add-DF_EnvironmentPath {
     Param(
         [Parameter(Mandatory = $true)]
         [String]
@@ -95,7 +87,7 @@ function AddToEnvironmentPath {
     [System.Environment]::SetEnvironmentVariable('Path', $EnvironmentPath -join [io.path]::PathSeparator)
 }
 
-function DotfilesHeader {
+function Write-DF_Header {
     if ($IsMacOS) {
         $OS = 'macOS'
     }
@@ -109,12 +101,12 @@ function DotfilesHeader {
         $OS = 'unknown operating system'
     }
     $PSVersion = $PSVersionTable.PSVersion.ToString()
-    WriteMessage -Type Info -Inverse -Message "${Global:DotfilesName}" -NoNewline
-    WriteMessage -Type Strong -Message " ${Global:DotfilesVersion}" -NoNewline
-    WriteMessage -Type Mute -Message " in PowerShell ${PSEdition} ${PSVersion} on ${OS}"
+    Write-DF_Message -Type Info -Inverse -Message "${Global:DotfilesName}" -NoNewline
+    Write-DF_Message -Type Strong -Message " ${Global:DotfilesVersion}" -NoNewline
+    Write-DF_Message -Type Mute -Message " in PowerShell ${PSEdition} ${PSVersion} on ${OS}"
 }
 
-function FindListeners {
+function Find-DF_Listeners {
     Param(
         [Parameter(Mandatory = $true)]
         [Int16]
@@ -128,43 +120,44 @@ function FindListeners {
     }
 }
 
-function InitCustomModule {
-    WriteMessage_Title -Action 'Initializing' -Name 'Dotfiles Custom Module'
+function Initialize-DF_CustomModule {
+    Write-DF_Message_Title -Action 'Initializing' -Name 'Dotfiles Custom Module'
     if (! (Test-Path $Global:DotfilesCustomModulePath)) {
         if (Test-Path $Global:DotfilesCustomModuleTemplatePath) {
-            WriteMessage -Type Info -Message 'Creating Dotfiles Custom Module...'
+            Write-DF_Message -Type Info -Message 'Creating Dotfiles Custom Module...'
             Copy-Item -Path $Global:DotfilesCustomModuleTemplatePath -Destination $Global:DotfilesCustomModulePath
-            WriteMessage -Type Success -Message "Dotfiles Custom Module '${Global:DotfilesCustomModulePath}' created."
+            Write-DF_Message -Type Success -Message "Dotfiles Custom Module '${Global:DotfilesCustomModulePath}' created."
         }
         else {
-            WriteMessage -Type Warning -Message 'Could nof find source file for Dotfiles Custom Module.'
+            Write-DF_Message -Type Warning -Message 'Could nof find source file for Dotfiles Custom Module.'
         }
     } 
     else {
-        WriteMessage -Type Warning -Message "Dotfiles Custom Module already exists. Delete '${Global:DotfilesCustomModulePath}' first."
+        Write-DF_Message -Type Warning -Message "Dotfiles Custom Module already exists. Delete '${Global:DotfilesCustomModulePath}' first."
     }
 }
 
 if ($IsWindows) {
-    function IsAdministrator {
+    function Test-DF_IsAdministrator {
         $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
         return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     }
 }
 
-function NewAppModule {
+function New-DF_AppModule {
     $NewAppModulePath = $Global:DotfilesNewAppModulePath.Replace('module.psm1', "module-$(Get-Date -Format 'yyyyMMddHHmmss').psm1")
     Copy-Item -Path $Global:DotfilesNewAppModuleTemplatePath -Destination $NewAppModulePath
 }
 
-function ReloadDotfiles {
+function Update-DF_Dotfiles {
     pwsh -NoLogo -NoExit -Command "cd $pwd"
     Stop-Process -Id $PID
 }
-New-Alias -Name reload -Value ReloadDotfiles
+New-Alias -Name reload -Value Update-DF_Dotfiles
 
-function X {
+function Exit-DF_X {
     exit
 }
+New-Alias -Name x -Value Exit-DF_X
 
-InitConfig
+Initialize-DF_Config

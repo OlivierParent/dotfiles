@@ -4,188 +4,81 @@
 # Installation Management
 # -----------------------
 
-function Install_Git {
-    WriteMessage_Title -Action 'Installing' -Name 'Git'
+function Install-DF_Git {
+    Write-DF_Message_Title -Action 'Installing' -Name 'Git'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Homebrew'
         bash -c 'brew install git'
     }
     elseif ($IsWindows) {
-        WriteMessage_Subtitle -Action 'install' -With 'Scoop'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Scoop'
         cmd /c 'scoop install git'
     }
-    if (ExistCommand -Name git) {
+    if (Test-DF_Command -Name git) {
         if ($IsWindows) {
             git config --global credential.helper wincred
         }
-        WriteMessage_Version -Name 'Git' -Version (git --version).Split(' ')[2]
+        Write-DF_Message_Version -Name 'Git' -Version (git --version).Split(' ')[2]
     }
     else {
-        WriteMessage_Fail -Action 'Installation'
+        Write-DF_Message_Fail -Action 'Installation'
     }
 }
 
-function Install_GitIgnoreGlobal {
-    if (! (ExistCommand -Name git)) {
+function Install-DF_GitIgnoreGlobal {
+    if (! (Test-DF_Command -Name git)) {
         Install_Git
     }
-    WriteMessage_Title -Action 'Installing' -Name 'GitIgnore Global'
+    Write-DF_Message_Title -Action 'Installing' -Name 'GitIgnore Global'
     $GitIgnoreSource = Join-Path -Path $Global:DotfilesInstallPath -ChildPath 'preferences' | Join-Path -ChildPath 'gitignore_global'
     git config --global core.excludesfile $GitIgnoreSource
 }
 
-function Install_GitHubCLI {
-    WriteMessage_Title -Action 'Installing' -Name 'GitHub CLI'
+function Install-DF_GitHubCLI {
+    Write-DF_Message_Title -Action 'Installing' -Name 'GitHub CLI'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Homebrew'
         bash -c 'brew install gh'
     }
     elseif ($IsWindows) {
-        WriteMessage_Subtitle -Action 'install' -With 'Scoop'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Scoop'
         cmd /c 'scoop install gh'
     }
-    if (ExistCommand -Name gh) {
-        WriteMessage_Version -Name 'GitHub CLI' -Version (gh --version).Split(' ')[2]
+    if (Test-DF_Command -Name gh) {
+        Write-DF_Message_Version -Name 'GitHub CLI' -Version (gh --version).Split(' ')[2]
     }
     else {
-        WriteMessage_Fail -Action 'Installation'
+        Write-DF_Message_Fail -Action 'Installation'
     }
 }
 
-if (ExistCommand -Name git) {
+if (Test-DF_Command -Name git) {
 
-    # Commands
-    # --------
-
-    # Git and GitHub
-    # ==============
-
-    # Installation Management
-    # -----------------------
-
-    function Install_Git {
-        WriteMessage_Title -Action 'Installing' -Name 'Git'
-        if ($IsMacOS) {
-            WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
-            bash -c 'brew install git'
-        }
-        elseif ($IsWindows) {
-            WriteMessage_Subtitle -Action 'install' -With 'Scoop'
-            cmd /c 'scoop install git'
-        }
-        if (ExistCommand -Name git) {
-            if ($IsWindows) {
-                git config --global credential.helper wincred
-            }
-            WriteMessage_Version -Name 'Git' -Version (git --version).Split(' ')[2]
-        }
-        else {
-            WriteMessage_Fail -Action 'Installation'
-        }
-    }
-
-    function Install_GitIgnoreGlobal {
-        if (! (ExistCommand -Name git)) {
-            Install_Git
-        }
-        WriteMessage_Title -Action 'Installing' -Name 'GitIgnore Global'
-        $GitIgnoreSource = Join-Path -Path $Global:DotfilesInstallPath -ChildPath 'preferences' | Join-Path -ChildPath 'gitignore_global'
-        git config --global core.excludesfile $GitIgnoreSource
-    }
-
-    function Install_GitHubCLI {
-        WriteMessage_Title -Action 'Installing' -Name 'GitHub CLI'
-        if ($IsMacOS) {
-            WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
-            bash -c 'brew install gh'
-        }
-        elseif ($IsWindows) {
-            WriteMessage_Subtitle -Action 'install' -With 'Scoop'
-            cmd /c 'scoop install gh'
-        }
-        if (ExistCommand -Name gh) {
-            WriteMessage_Version -Name 'GitHub CLI' -Version (gh --version).Split(' ')[2]
-        }
-        else {
-            WriteMessage_Fail -Action 'Installation'
-        }
-    }
-
-    if (ExistCommand -Name git) {
-
-        # Commands
-        # --------
-
-        function Git_GlobalConfig {
-            Param(
-                [Parameter(Mandatory = $true)]
-                [String]
-                $EmailAddress,
-                [Parameter(Mandatory = $true)]
-                [String]
-                $UserName
-            )
-            git config --global init.defaultBranch main
-            git config --global user.email "$EmailAddress"
-            git config --global user.name "$UserName"
-        }
-
-        function Git_UpdateBrowserlist {
-            npx update-browserslist-db@latest
-        }
-
-        function Git_Wip {
-            git add . && git commit -a -m [WIP] && git push --set-upstream origin main
-        }
-        Set-Alias -Name wip -Value Git_Wip
-
-        # Help
-        # ----
-
-        function Open_Git_Web {
-            OpenUri https://git-scm.com/
-        }
-
-        function Open_GitHub_Web {
-            OpenUri https://github.com/
-        }
-        Set-Alias -Name github -Value Open_GitHub_Web
-
-        if (ExistCommand -Name gh) {
-
-            function Open_GitHubCLI_Web {
-                OpenUri https://cli.github.com/
-            }
-
-        }
-
-    }
-
-    function Git_UpdateBrowserlist {
+    function Update-DF_GitBrowserlist {
         npx update-browserslist-db@latest
     }
 
-    function Git_Wip {
+    function Publish-DF_GitWip {
         git add . && git commit -a -m [WIP] && git push --set-upstream origin main
     }
-    Set-Alias -Name wip -Value Git_Wip
+    Set-Alias -Name wip -Value Publish-DF_GitWip
 
     # Help
     # ----
 
-    function Open_Git_Web {
-        OpenUri https://git-scm.com/
+    function Show-DF_GitWeb {
+        Start-DF_Browser https://git-scm.com/
     }
 
-    function Open_GitHub_Web {
-        OpenUri https://github.com/
+    function Show-DF_GitHubWeb {
+        Start-DF_Browser https://github.com/
     }
-    Set-Alias -Name github -Value Open_GitHub_Web
+    Set-Alias -Name github -Value Show-DF_GitHubWeb
 
-    if (ExistCommand -Name gh) {
+    if (Test-DF_Command -Name gh) {
 
-        function Open_GitHubCLI_Web {
-            OpenUri https://cli.github.com/
+        function Show-DF_GitHubCLI_Web {
+            Start-DF_Browser https://cli.github.com/
         }
 
     }

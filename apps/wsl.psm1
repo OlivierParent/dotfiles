@@ -5,9 +5,9 @@
 # Installation Management
 # -----------------------
 if ($IsWindows) {
-    function Install_WSL {
-        WriteMessage_Title -Action 'Installing' -Name 'Windows Subsystem for Linux'
-        WriteMessage_Subtitle -Action 'install' -With 'WSL'
+    function Install-DF_Wsl {
+        Write-DF_Message_Title -Action 'Installing' -Name 'Windows Subsystem for Linux'
+        Write-DF_Message_Subtitle -Action 'install' -With 'WSL'
         wsl --install
     }
 }
@@ -15,15 +15,14 @@ if ($IsWindows) {
 # Commands
 # --------
 
-
 # Help
 # ----
 if ($IsWindows) {
-    function Open_WSL_Doc {
-        OpenUri https://learn.microsoft.com/windows/wsl/
+    function Show-DF_WslDoc {
+        Start-DF_Browser https://learn.microsoft.com/windows/wsl/
     }
 
-    function Open_WSL_Web {
-        OpenUri https://learn.microsoft.com/windows/wsl/
+    function Show-DF_WslWeb {
+        Start-DF_Browser https://learn.microsoft.com/windows/wsl/
     }
 }

@@ -5,15 +5,15 @@
 # Installation Management
 # -----------------------
 
-function Install_PowerShell {
-    WriteMessage_Title -Action 'Installing' -Name 'PowerShell'
+function Install-DF_PowerShell {
+    Write-DF_Message_Title -Action 'Installing' -Name 'PowerShell'
     if ($IsMacOS) {
-        WriteMessage_Subtitle -Action 'install' -With 'Homebrew'
+        Write-DF_Message_Subtitle -Action 'install' -With 'Homebrew'
         sh -c 'brew cask install powershell'
     }
     elseif ($IsWindows) {
-        WriteMessage -Type Warning -Inverse -Message 'Get PowerShell from Microsoft Store!'
-        OpenUri -Edge https://apps.microsoft.com/detail/9mz1snwt0n5d?launch=true&mode=full
+        Write-DF_Message -Type Warning -Inverse -Message 'Get PowerShell from Microsoft Store!'
+        Start-DF_Browser -Edge https://apps.microsoft.com/detail/9mz1snwt0n5d?launch=true&mode=full
     }
     elseif ($IsLinux) {
         $OS = 'ubuntu1.16.04.1_amd64.deb$'
@@ -37,10 +37,10 @@ function Install_PowerShell {
 # Help
 # ----
 
-function Open_PowerShell_Doc {
-    OpenUri https://learn.microsoft.com/powershell/scripting/
+function Show-DF_PowerShellDoc {
+    Start-DF_Browser https://learn.microsoft.com/powershell/scripting/
 }
 
-function Open_PowerShell_Web {
-    OpenUri https://learn.microsoft.com/powershell/
+function Show-DF_PowerShellWeb {
+    Start-DF_Browser https://learn.microsoft.com/powershell/
 }
