@@ -54,14 +54,35 @@ function Install-DF_GitHubCLI {
 
 if (Test-DF_Command -Name git) {
 
-    function Update-DF_GitBrowserlist {
-        npx update-browserslist-db@latest
+
+    function Get-DF_GitStatus {
+        git status
     }
+    Set-Alias -Name sts -Value Get-DF_GitStatus
 
     function Publish-DF_GitWip {
         git add . && git commit -a -m [WIP] && git push --set-upstream origin main
     }
     Set-Alias -Name wip -Value Publish-DF_GitWip
+
+    function Set-GitConfig {
+        param (
+            [string]
+            $Email
+        )
+        if ($Email -eq '') {
+            $Email = Read-Host -Message 'Enter your GitHub email address'
+        }
+        if ($IsWindows) {
+            git config --global credential.helper 'wincred'
+        }
+        git config --global init.defaultBranch 'main'
+        git config --global user.email "${Email}"
+    }
+
+    function Update-DF_GitBrowserlist {
+        npx update-browserslist-db@latest
+    }
 
     # Help
     # ----
