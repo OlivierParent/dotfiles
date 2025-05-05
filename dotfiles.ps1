@@ -87,4 +87,10 @@ if (! $Error) {
 
 Write-DF_Header
 
+# Overriding the default PowerShell prompt
+# ----------------------------------------
+function prompt {
+    Show-DF_Prompt
+}
+
 Set-Location $WorkingDirectory

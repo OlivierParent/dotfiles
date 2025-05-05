@@ -54,6 +54,9 @@ function Install-DF_GitHubCLI {
 
 if (Test-DF_Command -Name git) {
 
+    function Clear-DF_NpmCache {
+        npm cache clean --force
+    }
 
     function Get-DF_GitStatus {
         git status
@@ -65,7 +68,7 @@ if (Test-DF_Command -Name git) {
     }
     Set-Alias -Name wip -Value Publish-DF_GitWip
 
-    function Set-GitConfig {
+    function Set-DF_GitConfig {
         param (
             [string]
             $Email

@@ -31,6 +31,11 @@ if (Test-DF_Command -Name yarn) {
     # Commands
     # --------
 
+    function Clear-DF_YarnCache {
+        Write-DF_Message_Title -Action 'Clearing' -Name 'Yarn cache'
+        yarn cache clean --all
+    }
+
     # Help
     # ----
 
