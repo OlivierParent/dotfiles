@@ -9,7 +9,6 @@ function Install-DF_Node {
     Write-DF_Message_Title -Action 'Installing' -Name 'Node.js'
     if ($IsMacOS) {
         Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
-        # nvm install
         nvm install --lts
         
     }

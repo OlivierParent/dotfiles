@@ -12,8 +12,9 @@ function Install-DF_PowerShell {
         sh -c 'brew cask install powershell'
     }
     elseif ($IsWindows) {
-        Write-DF_Message -Type Warning -Inverse -Message 'Get PowerShell from Microsoft Store!'
-        Start-DF_Browser -Edge https://apps.microsoft.com/detail/9mz1snwt0n5d?launch=true&mode=full
+        Write-DF_Message_Subtitle -Action 'install' -With 'winget'
+        Write-DF_Message_Title -Action 'Installing' -Name 'PowerShell'
+        cmd /c 'winget install PowerShell --source msstore'
     }
     elseif ($IsLinux) {
         $OS = 'ubuntu1.16.04.1_amd64.deb$'

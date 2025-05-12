@@ -54,4 +54,21 @@ if ($IsWindows) {
         LxRun.exe /uninstall /y
     }
 
+
+    function Get-DF_AllProcesses {
+        Param(
+            [String]
+            $SearchFor
+        )
+        Write-DF_Message_Title -Action 'Getting' -Name "processes with '${SearchFor}' in description"
+        Get-Process | Where-Object { $_.Description -Like "*${SearchFor}*" } | Format-Table Id, ProcessName, Description
+    }
+    function Stop-DF_AllProcesses {
+        Param(
+            [String]
+            $SearchFor
+        )
+        Write-DF_Message_Title -Action 'Stopping' -Name "processes with '${SearchFor}' in description"
+        Get-Process | Where-Object { $_.Description -Like "*${SearchFor}*" } | Stop-Process -Force
+    }
 }

@@ -7,6 +7,12 @@
 
 if ($IsWindows) {
 
+    function Install-DF_Blender {
+        Write-DF_Message_Title -Action 'Installing' -Name 'Blender'
+        Write-DF_Message_Subtitle -Action 'install' -With 'winget'
+        cmd /c 'winget install Blender --source msstore'
+    }
+    
     function Start-DF_BlenderInfo {
         query user
     }
@@ -19,6 +25,9 @@ if ($IsWindows) {
         Start-Process tscon.exe -Verb RunAs -ArgumentList "$SessionName /DEST:console" -Wait
         Start-Process 'C:\Program Files\Blender Foundation\Blender\2.80\blender.exe'
     }
+
+
+
 
     function Set-DF_BlenderMicrosoftStoreVersion {
         WriteConfig -Name Blender -Value ((Get-AppxPackage –AllUsers | Where-Object { $_.Name -eq 'BlenderFoundation.Blender' }).Version.Split('.')[0..1] -join '.')

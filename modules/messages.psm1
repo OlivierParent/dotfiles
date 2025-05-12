@@ -72,11 +72,12 @@ function Write-DF_Message {
         }
     }
     if ($Background) {
-        Write-Host " ${Message} " -BackgroundColor $Background -ForegroundColor $Foreground -NoNewline:$NoNewline;
+        Write-Host " ${Message} " -BackgroundColor $Background -ForegroundColor $Foreground -NoNewline
     }
     else {
-        Write-Host "${Message}" -ForegroundColor $Foreground -NoNewline:$NoNewline;
+        Write-Host "${Message}" -ForegroundColor $Foreground -NoNewline;
     }
+    Write-Host "" -NoNewline:$NoNewline; # To avoid occasional bleeding background.
 }
 
 # Messages
@@ -103,7 +104,7 @@ function Write-DF_Message_Subtitle {
         [String]
         $Action,
         [Parameter(Mandatory = $true)]
-        [ValidateSet('APT', 'Homebrew', 'LxRun', 'npm', 'NVM', 'Ruby', 'Scoop', 'WSL')]
+        [ValidateSet('APT', 'Homebrew', 'LxRun', 'npm', 'NVM', 'Ruby', 'Scoop', 'winget', 'WSL')]
         [String]
         $With
     )
@@ -114,7 +115,7 @@ function Write-DF_Message_Subtitle {
 function Write-DF_Message_Title {
     Param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Clearing', 'Disabling', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Updating')]
+        [ValidateSet('Clearing', 'Disabling', 'Getting', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Stopping', 'Updating')]
         [String]
         $Action,
         [Parameter(Mandatory = $true)]
