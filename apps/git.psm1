@@ -27,7 +27,7 @@ function Install-DF_Git {
 
 function Install-DF_GitIgnoreGlobal {
     if (! (Test-DF_Command -Name git)) {
-        Install_Git
+        Install-DF_Git
     }
     Write-DF_Message_Title -Action 'Installing' -Name 'GitIgnore Global'
     $GitIgnoreSource = Join-Path -Path $Global:DotfilesInstallPath -ChildPath 'preferences' | Join-Path -ChildPath 'gitignore_global'

@@ -61,13 +61,13 @@ function Set-DF_Node {
         if ($Versions -contains "${Version}") {
             $nodePath = "${NodeJsPath}/${Version}/bin"
             if (Test-Path -Path $nodePath) {
-                WriteConfig -Name Node -Value $Version
+                Write-DF_Config -Name Node -Value $Version
                 nvm alias default $Version
                 $env:PATH = @($nodePath, $env:PATH) -join [io.path]::PathSeparator
                 Set-Alias -Name node -Value $(Get-Command -Name node -Type Application | Select-Object -First 1).Source -Scope Global
             }
             else {
-                WriteConfig -Name Node -Value $null
+                Write-DF_Config -Name Node -Value $null
             }
             return
         }
@@ -75,7 +75,7 @@ function Set-DF_Node {
     elseif ($IsWindows) {
         $Versions = nvm.exe list | Select-String -Pattern '(\d+(.\d+){2})' | ForEach-Object { ($_.Matches).Value }
         if ($Versions -contains "${Version}") {
-            WriteConfig -Name Node -Value $Version
+            Write-DF_Config -Name Node -Value $Version
             nvm.exe use $Version
             return
         }
@@ -123,7 +123,7 @@ function Use-DF_Node {
         $NodeVersion = nvm.exe list | Select-String -Pattern "(${Version}(.\d+){2})" -AllMatches | ForEach-Object { ($_.Matches).Value } | Select-Object -First 1
     }
     if ($NodeVersion) {
-        Set_Node -Version $NodeVersion
+        Set-DF_Node -Version $NodeVersion
     }
 }
 

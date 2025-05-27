@@ -32,7 +32,7 @@ if ($IsWindows) {
     }
 
     function Set-DF_BlenderMicrosoftStoreVersion {
-        WriteConfig -Name Blender -Value ((Get-AppxPackage –AllUsers | Where-Object { $_.Name -eq 'BlenderFoundation.Blender' }).Version.Split('.')[0..1] -join '.')
+        Write-DF_Config -Name Blender -Value ((Get-AppxPackage –AllUsers | Where-Object { $_.Name -eq 'BlenderFoundation.Blender' }).Version.Split('.')[0..1] -join '.')
     }
 
 }

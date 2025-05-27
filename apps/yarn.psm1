@@ -8,7 +8,7 @@
 function Install-DF_Yarn {
     Write-DF_Message_Title -Action 'Installing' -Name 'Yarn'
     if ($IsMacOS -or $IsWindows) {
-        Update_Npm
+        Update-DF_Npm
         Write-DF_Message_Subtitle -Action 'install' -With 'npm'
         npm install --global yarn
     }
