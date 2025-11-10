@@ -7,16 +7,22 @@
 
 function Install-DF_Yarn {
     Write-DF_Message_Title -Action 'Installing' -Name 'Yarn'
-    if ($IsMacOS -or $IsWindows) {
-        Update-DF_Npm
-        Write-DF_Message_Subtitle -Action 'install' -With 'npm'
-        npm install --global yarn
+    if (Test-DF_Command -Name corepack) {
+        Write-DF_Message_Subtitle -Action 'install' -With 'corepack'
+        corepack enable yarn
     }
-    elseif ($IsLinux) {
-        Write-DF_Message_Subtitle -Action 'install' -With 'APT'
-        sh -c 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -'
-        sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
-        sh -c 'sudo apt update && sudo apt install yarn'
+    else {
+        if ($IsMacOS -or $IsWindows) {
+            Update-DF_Npm
+            Write-DF_Message_Subtitle -Action 'install' -With 'npm'
+            npm install --global yarn
+        }
+        elseif ($IsLinux) {
+            Write-DF_Message_Subtitle -Action 'install' -With 'APT'
+            sh -c 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -'
+            sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
+            sh -c 'sudo apt update && sudo apt install yarn'
+        }    
     }
     if (Test-DF_Command -Name yarn) {
         Write-DF_Message_Version -Name 'Yarn' -Version (yarn --version)

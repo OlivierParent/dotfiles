@@ -26,9 +26,6 @@ if ($IsWindows) {
         Start-Process 'C:\Program Files\Blender Foundation\Blender\2.80\blender.exe'
     }
 
-
-
-
     function Set-DF_BlenderMicrosoftStoreVersion {
         Write-DF_Config -Name Blender -Value ((Get-AppxPackage –AllUsers | Where-Object { $_.Name -eq 'BlenderFoundation.Blender' }).Version.Split('.')[0..1] -join '.')
     }

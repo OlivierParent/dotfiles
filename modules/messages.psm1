@@ -104,7 +104,7 @@ function Write-DF_Message_Subtitle {
         [String]
         $Action,
         [Parameter(Mandatory = $true)]
-        [ValidateSet('APT', 'Homebrew', 'LxRun', 'npm', 'NVM', 'Ruby', 'Scoop', 'winget', 'WSL')]
+        [ValidateSet('APT', 'corepack', 'Homebrew', 'LxRun', 'npm', 'NVM', 'Ruby', 'Scoop', 'winget', 'WSL')]
         [String]
         $With
     )

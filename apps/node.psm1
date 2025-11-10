@@ -6,16 +6,27 @@
 # -----------------------
 
 function Install-DF_Node {
+    Param(
+        [Switch]
+        $Lts # Long Term Support
+    )
     Write-DF_Message_Title -Action 'Installing' -Name 'Node.js'
+    Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
     if ($IsMacOS) {
-        Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
-        nvm install --lts
-        
+        if ($Lts) {
+            nvm install --lts
+        }
+        else {
+            nvm install
+        }
     }
     elseif ($IsWindows) {
-        $Latest = (((nvm list available) | Select-Object -Index 3).Split('|') | Select-Object -Index 2).Trim()
-        Write-DF_Message_Subtitle -Action 'install' -With 'NVM'
-        nvm.exe install $Latest
+        if ($Lts) {
+            nvm.exe install lts 64
+        }
+        else {
+            nvm.exe install latest 64
+        }
     }
     Update-DF_Npm
 }
@@ -32,7 +43,7 @@ function Install-DF_Nvm {
     }
     if (Test-DF_Command -Name nvm) {
         Write-DF_Message_Version -Name 'NVM' -Version $(if ($IsMacOS) { nvm --version } elseif ($IsWindows) { nvm version })
-    } 
+    }
     else {
         Write-DF_Message_Fail -Action 'Installation'
     }
@@ -86,8 +97,8 @@ function Set-DF_Node {
 
 function Show-DF_Node {
     $Version = ReadConfig -Name Node
-    
-    
+
+
     if ($Version) {
         Write-DF_Message_Version -Name 'Node.js' -Version $Version
     }
@@ -112,9 +123,13 @@ function Update-DF_Npm {
 
 function Use-DF_Node {
     Param(
-        [ValidateSet(20, 21, 22, 23)]
+        [ValidateSet(
+            22, # LTS
+            24, # Current
+            25  # Current
+        )]
         [Int16]
-        $Version = 22
+        $Version = 25
     )
     if ($IsMacOS) {
         $NodeVersion = $(nvm version $Version)
