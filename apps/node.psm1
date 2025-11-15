@@ -124,12 +124,11 @@ function Update-DF_Npm {
 function Use-DF_Node {
     Param(
         [ValidateSet(
-            22, # LTS
-            24, # Current
+            24, # LTS
             25  # Current
         )]
         [Int16]
-        $Version = 25
+        $Version = 24
     )
     if ($IsMacOS) {
         $NodeVersion = $(nvm version $Version)
