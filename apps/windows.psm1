@@ -54,7 +54,6 @@ if ($IsWindows) {
         LxRun.exe /uninstall /y
     }
 
-
     function Get-DF_AllProcesses {
         Param(
             [String]
@@ -70,5 +69,11 @@ if ($IsWindows) {
         )
         Write-DF_Message_Title -Action 'Stopping' -Name "processes with '${SearchFor}' in description"
         Get-Process | Where-Object { $_.Description -Like "*${SearchFor}*" } | Stop-Process -Force
+    }
+
+    function Start-DF_Debloat {
+        Write-DF_Message_Title -Action 'Running' -Name "Raphire Win11Debloat"
+        # https://github.com/Raphire/Win11Debloat/
+        & ([scriptblock]::Create((irm "https://debloat.raphi.re/")))
     }
 }

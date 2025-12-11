@@ -115,7 +115,7 @@ function Write-DF_Message_Subtitle {
 function Write-DF_Message_Title {
     Param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Clearing', 'Disabling', 'Getting', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Stopping', 'Updating')]
+        [ValidateSet('Clearing', 'Disabling', 'Getting', 'Initializing', 'Installing', 'Uninstalling', 'Reinstalling', 'Removing', 'Resetting', 'Restarting', 'Running', 'Stopping', 'Updating')]
         [String]
         $Action,
         [Parameter(Mandatory = $true)]
