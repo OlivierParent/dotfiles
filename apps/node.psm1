@@ -8,6 +8,8 @@
 function Install-DF_Node {
     Param(
         [Switch]
+        $Npm, # Update npm
+        [Switch]
         $Lts # Long Term Support
     )
     Write-DF_Message_Title -Action 'Installing' -Name 'Node.js'
@@ -28,7 +30,9 @@ function Install-DF_Node {
             nvm.exe install latest 64
         }
     }
-    Update-DF_Npm
+    if ($Npm) {
+        Update-DF_Npm
+    }
 }
 
 function Install-DF_Nvm {
