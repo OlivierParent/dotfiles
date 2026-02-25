@@ -71,7 +71,7 @@ if (Test-Path -Path $Global:DotfilesCustomModulePath) {
 # ---------------
 
 if ((Test-DF_Command -Name git) -and (Test-Path -Path .git)) {
-    # git pull
+    git pull
 }
 
 # Setting Location and Starting Dotfiles
@@ -90,7 +90,7 @@ Write-DF_Header
 # Overriding the default PowerShell prompt
 # ----------------------------------------
 function prompt {
-    Show-DF_Prompt
+    Show-DF_Prompt -OhMyPosh
 }
 
 Set-Location $WorkingDirectory

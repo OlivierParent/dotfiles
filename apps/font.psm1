@@ -124,3 +124,10 @@ function Install-DF_Font {
     }
     Remove-Item -Path $TempPath -Recurse -Force
 }
+
+# Help
+# ----
+
+function Show-DF_NerdFontsWeb {
+    Start-DF_Browser https://www.nerdfonts.com/
+}

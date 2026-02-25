@@ -27,11 +27,6 @@ function Install-DF_PowerShell {
     }
 }
 
-# Bug Fixes
-# -----------
-# PowerShell Core 7.5.0
-#Enable-ExperimentalFeature PSFeedbackProvider
-
 # Commands
 # --------
 
@@ -44,4 +39,28 @@ function Show-DF_PowerShellDoc {
 
 function Show-DF_PowerShellWeb {
     Start-DF_Browser https://learn.microsoft.com/powershell/
+}
+
+# Oh My Posh
+# ----------
+
+function Install-DF_OhMyPosh {
+    Param(
+        [Switch]
+        $Font
+    )
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+    if ($Font -and (Test-DF_Command -Name 'oh-my-posh')) {
+        oh-my-posh font install meslo
+        Write-DF_Message -Message "Set terminal font to 'MesloLGM Nerd Font'."
+    }
+}
+New-Alias -Name Update-DF_OhMyPosh -Value Install-DF_OhMyPosh
+
+function Show-DF_OhMyPoshDoc {
+    Start-DF_Browser https://ohmypo.sh/docs/
+}
+
+function Show-DF_OhMyPoshWeb {
+    Start-DF_Browser https://ohmypo.sh/
 }

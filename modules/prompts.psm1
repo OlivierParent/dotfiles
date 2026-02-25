@@ -16,5 +16,12 @@ class Prompt {
 }
 
 function Show-DF_Prompt {
+    Param(
+        [Switch]
+        $OhMyPosh
+    )
     $([Prompt]::Git()) + "$($ExecutionContext.SessionState.Path.CurrentLocation)$('>' * (${NestedPromptLevel} + 1)) "
+    if ($OhMyPosh -and (Test-DF_Command -Name 'oh-my-posh')) {
+        oh-my-posh init pwsh | Invoke-Expression
+    }
 }
