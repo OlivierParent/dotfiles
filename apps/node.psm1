@@ -24,10 +24,10 @@ function Install-DF_Node {
     }
     elseif ($IsWindows) {
         if ($Lts) {
-            nvm.exe install lts 64
+            nvm.exe install lts
         }
         else {
-            nvm.exe install latest 64
+            nvm.exe install latest
         }
     }
     if ($Npm) {
@@ -46,7 +46,10 @@ function Install-DF_Nvm {
         cmd /c 'scoop install nvm'
     }
     if (Test-DF_Command -Name nvm) {
-        Write-DF_Message_Version -Name 'NVM' -Version $(if ($IsMacOS) { nvm --version } elseif ($IsWindows) { nvm version })
+        Write-DF_Message_Version -Name 'NVM' -Version $(nvm --version)
+        if ($IsWindows) {
+            cmd /c 'nvm cfg set mode=link'
+        }
     }
     else {
         Write-DF_Message_Fail -Action 'Installation'
@@ -101,7 +104,6 @@ function Set-DF_Node {
 
 function Show-DF_Node {
     $Version = ReadConfig -Name Node
-
 
     if ($Version) {
         Write-DF_Message_Version -Name 'Node.js' -Version $Version
