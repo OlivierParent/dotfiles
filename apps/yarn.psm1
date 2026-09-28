@@ -13,7 +13,7 @@ function Install-DF_Yarn {
     }
     else {
         if ($IsMacOS -or $IsWindows) {
-            # Update-DF_Npm # cauases errors as of nvm 2.0.0
+            Update-DF_Npm
             Write-DF_Message_Subtitle -Action 'install' -With 'npm'
             npm install --global yarn
         }
