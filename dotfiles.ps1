@@ -46,6 +46,7 @@ Set-Location -Path $Global:DotfilesInstallPath
     'macos'
     'nginx'
     'node'
+    'pnpm'
     'powershell'
     'rust'
     'scoop'
