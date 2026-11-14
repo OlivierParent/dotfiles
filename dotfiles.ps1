@@ -75,6 +75,14 @@ if ((Test-DF_Command -Name git) -and (Test-Path -Path .git)) {
     git pull
 }
 
+# Overriding the default PowerShell prompt
+# ----------------------------------------
+if (-not (Initialize-DF_OhMyPosh)) {
+    function prompt {
+        Show-DF_Prompt
+    }
+}
+
 # Setting Location and Starting Dotfiles
 # --------------------------------------
 
@@ -87,11 +95,5 @@ if (! $Error) {
 }
 
 Write-DF_Header
-
-# Overriding the default PowerShell prompt
-# ----------------------------------------
-function prompt {
-    Show-DF_Prompt -OhMyPosh
-}
 
 Set-Location $WorkingDirectory

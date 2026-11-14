@@ -16,15 +16,14 @@ class Prompt {
     }
 }
 
-function Show-DF_Prompt {
-    Param(
-        [Switch]
-        $OhMyPosh
-    )
-    if ($OhMyPosh -and (Test-DF_Command -Name 'oh-my-posh')) {
+function Initialize-DF_OhMyPosh {
+    if (Test-DF_Command -Name 'oh-my-posh') {
         oh-my-posh init pwsh | Invoke-Expression
+        return $true
     }
-    else {
-        $([Prompt]::Git()) + "$($ExecutionContext.SessionState.Path.CurrentLocation)$('>' * (${NestedPromptLevel} + 1)) "
-    }
+    return $false 
+}
+
+function Show-DF_Prompt {
+    $([Prompt]::Git()) + "$($ExecutionContext.SessionState.Path.CurrentLocation)$('>' * (${NestedPromptLevel} + 1)) "
 }
