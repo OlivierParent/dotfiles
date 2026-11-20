@@ -59,6 +59,10 @@ function Install-DF_Nvm {
 # Commands
 # --------
 
+function Clear-DF_NpmCache {
+    npm cache clean --force
+}
+
 function Initialize-DF_Node {
     if ($IsMacOS) {
         $Version = ReadConfig -Name Node
